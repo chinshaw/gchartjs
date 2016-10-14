@@ -1,5 +1,8 @@
 package gwt.chartjs.client.chart;
 
+import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.core.client.JsArrayString;
+
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -13,15 +16,21 @@ public class ChartDataSet {
      */
     private @JsProperty String type;
 
-    private @JsProperty String label;
-
     private @JsProperty Double[] data;
 
-    private @JsProperty String[] backgroundColor;
+    private @JsProperty String label;
+
+    private @JsProperty JavaScriptObject backgroundColor;
 
     private @JsProperty String[] borderColor;
 
     private @JsProperty int borderWidth;
+
+    private @JsProperty String xAxisID;
+
+    private @JsProperty String yAxisID;
+
+    private @JsProperty boolean fill;
 
     public @JsOverlay final void setBorderWidth(int borderWidth) {
         this.borderWidth = borderWidth;
@@ -43,12 +52,35 @@ public class ChartDataSet {
         this.data = data;
     }
 
-    public @JsOverlay final String[] getBackgroundColor() {
-        return backgroundColor;
+    public @JsOverlay final String getBackgroundColor() {
+        return null;
+        // return this.backgroundColor.isString().stringValue();
     }
 
-    public @JsOverlay final void setBackgroundColor(String[] backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public @JsOverlay final void setBackgroundColor(final String color) {
+        // this.backgroundColor = new JSONString(color);
+    }
+
+    public @JsOverlay final String[] getBackgroundColors() {
+        final JsArrayString array = this.backgroundColor.cast();
+        int len = array.length();
+        String[] colors = new String[len];
+        for (int i = 0; i < len; i++) {
+            colors[i] = array.get(i).toString();
+        }
+
+        return colors;
+    }
+
+    public @JsOverlay final void setBackgroundColors(String[] backgroundColors) {
+        final JsArrayString _backgroundColors = JavaScriptObject.createArray().cast();
+
+        int len = backgroundColors.length;
+        for (int i = 0; i < len; i++) {
+            _backgroundColors.push(backgroundColors[i]);
+        }
+
+        this.backgroundColor = _backgroundColors;
     }
 
     public @JsOverlay final String[] getBorderColor() {
@@ -63,15 +95,69 @@ public class ChartDataSet {
         return borderWidth;
     }
 
-    public @JsOverlay final String getType() {
+    public @JsOverlay final ChartType getType() {
         if (type == null) {
-            return "bar";
+            return null;
         }
-        return type;
+        return ChartType.asType(type);
     }
 
-    public @JsOverlay final void setType(String type) {
-        this.type = type;
+    public @JsOverlay final void setType(ChartType type) {
+        this.type = type.getType();
+    }
+
+    /**
+     * The ID of the x axis to plot this dataset on
+     * 
+     * @return
+     */
+    public @JsOverlay final String getxAxisID() {
+        return xAxisID;
+    }
+
+    /**
+     * The ID of the x axis to plot this dataset on
+     * 
+     * @param xAxisID
+     */
+    public @JsOverlay final void setxAxisID(String xAxisID) {
+        this.xAxisID = xAxisID;
+    }
+
+    /**
+     * The ID of the y axis to plot this dataset on
+     * 
+     * @return
+     */
+    public @JsOverlay final String getyAxisID() {
+        return yAxisID;
+    }
+
+    /**
+     * The ID of the y axis to plot this dataset on
+     * 
+     * @param yAxisID
+     */
+    public @JsOverlay final void setyAxisID(String yAxisID) {
+        this.yAxisID = yAxisID;
+    }
+
+    /**
+     * If true, fill the area under the line
+     * 
+     * @return
+     */
+    public @JsOverlay final boolean isFill() {
+        return fill;
+    }
+
+    /**
+     * If true, fill the area under the line
+     * 
+     * @param fill
+     */
+    public @JsOverlay final void setFill(boolean fill) {
+        this.fill = fill;
     }
 
 }

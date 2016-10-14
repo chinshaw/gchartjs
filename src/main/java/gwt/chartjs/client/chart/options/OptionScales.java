@@ -1,5 +1,6 @@
-package gwt.chartjs.client.chart;
+package gwt.chartjs.client.chart.options;
 
+import jsinterop.annotations.JsConstructor;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -16,6 +17,8 @@ public class OptionScales {
         private @JsProperty String type;
 
         private @JsProperty String position;
+
+        private @JsProperty GridLines gridLines;
 
         public @JsOverlay final String getType() {
             return type;
@@ -40,6 +43,33 @@ public class OptionScales {
         public @JsOverlay final void setId(String id) {
             this.id = id;
         }
+
+        public @JsOverlay final GridLines getGridLines() {
+            return gridLines;
+        }
+
+        public @JsOverlay final void setGridLines(GridLines gridLines) {
+            this.gridLines = gridLines;
+        }
+    }
+
+    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
+    public static class GridLines {
+
+        private @JsProperty boolean display;
+
+        @JsConstructor
+        public GridLines() {
+        }
+
+        public @JsOverlay final boolean isDisplay() {
+            return display;
+        }
+
+        public @JsOverlay final void setDisplay(boolean display) {
+            this.display = display;
+        }
+
     }
 
     private @JsProperty Axis[] xAxes;

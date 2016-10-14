@@ -1,5 +1,6 @@
 package gwt.chartjs.client.chart;
 
+import gwt.chartjs.client.chart.options.OptionScales;
 import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
