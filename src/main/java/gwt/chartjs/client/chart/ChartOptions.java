@@ -1,7 +1,8 @@
 package gwt.chartjs.client.chart;
 
+import gwt.chartjs.client.chart.options.OptionLegend;
 import gwt.chartjs.client.chart.options.OptionScales;
-import jsinterop.annotations.JsMethod;
+import gwt.chartjs.client.chart.options.OptionTooltips;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -19,6 +20,10 @@ public class ChartOptions {
     private @JsProperty String[] events;
 
     private @JsProperty OptionScales scales;
+
+    private @JsProperty OptionLegend legend;
+
+    private @JsProperty OptionTooltips tooltips;
 
     public @JsOverlay final boolean isResponsive() {
         return responsive;
@@ -59,4 +64,21 @@ public class ChartOptions {
     public @JsOverlay final void setScales(OptionScales scales) {
         this.scales = scales;
     }
+
+    public @JsOverlay final OptionLegend getLegend() {
+        return legend;
+    }
+
+    public @JsOverlay final void setLegend(OptionLegend legend) {
+        this.legend = legend;
+    }
+
+    public @JsOverlay final OptionTooltips getTooltips() {
+        return tooltips;
+    }
+
+    public @JsOverlay final void setTooltips(OptionTooltips tooltips) {
+        this.tooltips = tooltips;
+    }
+
 }
