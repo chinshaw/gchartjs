@@ -9,12 +9,10 @@ public class GChartJs {
 
     private static boolean injected = false;
 
-    /**
-     * Method injecting native chart.js code into the browser<br/>
-     * In case code already been injected do nothing
-     */
     public static void bootstrap(final Runnable runnable) {
+        // Check if the js is injected.
         if (injected) {
+            runnable.run();
             return;
         }
 
@@ -22,8 +20,8 @@ public class GChartJs {
         String source = res.chartJsSource().getText();
 
         ScriptInjector.fromString(source).setWindow(ScriptInjector.TOP_WINDOW).inject();
-        runnable.run();
-
         injected = true;
+
+        runnable.run();
     }
 }
