@@ -81,4 +81,74 @@ public class ChartOptions {
         this.tooltips = tooltips;
     }
 
+    public static class Builder {
+        private boolean responsive;
+
+        private int responsiveAnimationDuration;
+
+        private boolean maintainAspectRatio;
+
+        private String[] events;
+
+        private OptionScales scales;
+
+        private OptionLegend legend;
+
+        private OptionTooltips tooltips;
+
+        public final Builder responsive(boolean responsive) {
+            this.responsive = responsive;
+            return this;
+        }
+
+        public final Builder responsiveAnimationDuration(int responsiveAnimationDuration) {
+            this.responsiveAnimationDuration = responsiveAnimationDuration;
+            return this;
+        }
+
+        public final Builder maintainAspectRatio(boolean maintainAspectRatio) {
+            this.maintainAspectRatio = maintainAspectRatio;
+            return this;
+        }
+
+        public final Builder events(String[] events) {
+            this.events = events;
+            return this;
+        }
+
+        public final Builder scales(OptionScales scales) {
+            this.scales = scales;
+            return this;
+        }
+
+        public final Builder legend(OptionLegend legend) {
+            this.legend = legend;
+            return this;
+        }
+
+        public final Builder tooltips(OptionTooltips tooltips) {
+            this.tooltips = tooltips;
+            return this;
+        }
+
+        /**
+         * Build it
+         * 
+         * @return
+         */
+        public ChartOptions build() {
+            final ChartOptions options = new ChartOptions();
+            options.setResponsive(responsive);
+            options.setResponsiveAnimationDuration(responsiveAnimationDuration);
+            options.setMaintainAspectRatio(maintainAspectRatio);
+            options.setEvents(events);
+            options.setScales(scales);
+            options.setLegend(legend);
+            options.setTooltips(tooltips);
+            return options;
+
+        }
+
+    }
+
 }

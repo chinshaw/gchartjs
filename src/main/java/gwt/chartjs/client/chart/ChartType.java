@@ -5,8 +5,13 @@ import java.util.Map;
 
 public enum ChartType {
 
-    BAR("bar"), LINE("line"), RADAR("radar"), POLAR_AREA("polar_area"), PIE("pie"), DOUGHNUT("doughnut"), BUBBLE(
-            "bubble");
+    BAR("bar"), 
+    LINE("line"),
+    RADAR("radar"),
+    POLAR_AREA("polar_area"),
+    PIE("pie"),
+    DOUGHNUT("doughnut"),
+    BUBBLE("bubble");
 
     private String type;
 

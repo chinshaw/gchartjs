@@ -18,8 +18,12 @@ public class ChartConfig {
         return type;
     }
 
-    public @JsOverlay final void setType(String type) {
-        this.type = type;
+    public @JsOverlay final void setType(ChartType type) {
+        this.type = type.getType();
+    }
+
+    public @JsOverlay final ChartType getJsType() {
+        return ChartType.asType(type);
     }
 
     public @JsOverlay final ChartData getData() {
@@ -38,4 +42,37 @@ public class ChartConfig {
         this.options = options;
     }
 
+    public static class Builder {
+
+        private ChartType type;
+        private ChartData chartData;
+        private ChartOptions options;
+
+        public Builder(ChartType type) {
+            this.type = type;
+        }
+
+        public Builder type(ChartType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder withData(ChartData chartData) {
+            this.chartData = chartData;
+            return this;
+        }
+
+        public Builder withOptions(ChartOptions options) {
+            this.options = options;
+            return this;
+        }
+
+        public ChartConfig build() {
+            final ChartConfig config = new ChartConfig();
+            config.setType(type);
+            config.setOptions(options);
+            config.setData(chartData);
+            return config;
+        }
+    }
 }

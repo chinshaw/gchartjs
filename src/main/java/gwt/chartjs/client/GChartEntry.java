@@ -2,17 +2,6 @@ package gwt.chartjs.client;
 
 import java.util.logging.Logger;
 
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.ui.RootPanel;
-
-import gwt.chartjs.client.chart.ChartConfig;
-import gwt.chartjs.client.chart.ChartData;
-import gwt.chartjs.client.chart.ChartDataSet;
-import gwt.chartjs.client.chart.ChartJsWidget;
-import gwt.chartjs.client.chart.ChartOptions;
-import gwt.chartjs.client.chart.options.OptionScales;
-import gwt.chartjs.client.chart.options.OptionScales.Axis;
-
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */

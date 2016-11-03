@@ -10,7 +10,10 @@ import jsinterop.annotations.JsType;
 public class OptionLegend {
 
     public enum Position {
-        TOP("top"), LEFT("left"), BOTTOM("bottom"), RIGHT("right");
+        TOP("top"), 
+        LEFT("left"), 
+        BOTTOM("bottom"),
+        RIGHT("right");
 
         private String position;
 

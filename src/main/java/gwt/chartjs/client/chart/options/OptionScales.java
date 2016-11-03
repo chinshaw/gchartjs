@@ -10,50 +10,6 @@ import jsinterop.annotations.JsType;
 public class OptionScales {
 
     @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
-    public static class Axis {
-
-        private @JsProperty String id;
-
-        private @JsProperty String type;
-
-        private @JsProperty String position;
-
-        private @JsProperty GridLines gridLines;
-
-        public @JsOverlay final String getType() {
-            return type;
-        }
-
-        public @JsOverlay final void setType(String type) {
-            this.type = type;
-        }
-
-        public @JsOverlay final String getPosition() {
-            return position;
-        }
-
-        public @JsOverlay final void setPosition(String position) {
-            this.position = position;
-        }
-
-        public @JsOverlay final String getId() {
-            return id;
-        }
-
-        public @JsOverlay final void setId(String id) {
-            this.id = id;
-        }
-
-        public @JsOverlay final GridLines getGridLines() {
-            return gridLines;
-        }
-
-        public @JsOverlay final void setGridLines(GridLines gridLines) {
-            this.gridLines = gridLines;
-        }
-    }
-
-    @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
     public static class GridLines {
 
         private @JsProperty boolean display;
