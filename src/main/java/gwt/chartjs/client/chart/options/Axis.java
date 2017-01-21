@@ -3,6 +3,7 @@ package gwt.chartjs.client.chart.options;
 import com.google.gwt.dom.client.Document;
 
 import gwt.chartjs.client.chart.options.OptionScales.GridLines;
+import jsinterop.annotations.JsFunction;
 import jsinterop.annotations.JsOverlay;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsProperty;
@@ -11,6 +12,11 @@ import jsinterop.annotations.JsType;
 @JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "Object")
 public class Axis {
 
+    @JsFunction @FunctionalInterface
+    public static interface TickCallback {
+        String f(Double value, int index, Double[] data);
+    }
+
     private @JsProperty String id;
 
     private @JsProperty String type;
@@ -18,6 +24,8 @@ public class Axis {
     private @JsProperty String position;
 
     private @JsProperty GridLines gridLines;
+
+    private @JsProperty OptionTick ticks;
 
     public @JsOverlay final String getType() {
         return type;
@@ -51,6 +59,14 @@ public class Axis {
         this.gridLines = gridLines;
     }
 
+    public @JsOverlay final OptionTick getTicks() {
+        return ticks;
+    }
+
+    public @JsOverlay final void setTicks(OptionTick ticks) {
+        this.ticks = ticks;
+    }
+
     public static class Builder {
 
         private String id;
@@ -78,7 +94,7 @@ public class Axis {
             if (position == null) {
                 throw new IllegalStateException("Axis: position is a required field, use builder position(Position)");
             }
-            
+
             final Axis axis = new Axis();
             axis.setGridLines(gridLines);
             axis.setPosition(position);

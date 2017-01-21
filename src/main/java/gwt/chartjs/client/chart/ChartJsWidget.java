@@ -1,6 +1,11 @@
 package gwt.chartjs.client.chart;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.gwt.canvas.client.Canvas;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Composite;
@@ -9,6 +14,8 @@ import com.google.gwt.user.client.ui.RequiresResize;
 import gwt.chartjs.client.GChartJs;
 
 public class ChartJsWidget extends Composite implements RequiresResize {
+
+    private static final Logger logger = Logger.getLogger(ChartJsWidget.class.getName());
 
     private NativeChart nativeChart;
 
@@ -27,7 +34,18 @@ public class ChartJsWidget extends Composite implements RequiresResize {
         GChartJs.bootstrap(() -> {
             // Wrap in deferred so that js has a chance to load.
             Scheduler.get().scheduleDeferred(() -> {
-                nativeChart = new NativeChart(getElement(), chartConfig);
+                try {
+                    final Element element = getElement();
+                    if (element == null) {
+                        logger.log(Level.WARNING, "attempt to initialize chart when composite is not initialized");
+                    }
+                    nativeChart = new NativeChart(element, chartConfig);
+                } catch (JavaScriptException e) {
+                    // Have to implicitly catch JavaScriptException
+                    logger.log(Level.WARNING, "Unable to create native chart", e);
+                } catch (Exception e) {
+                    logger.log(Level.WARNING, "Unable to create native chart", e);
+                }
             });
         });
     }
@@ -42,6 +60,10 @@ public class ChartJsWidget extends Composite implements RequiresResize {
     }
 
     public void redraw() {
+        if (nativeChart == null) {
+            logger.log(Level.WARNING, "Attempt to redraw null gchart, maybe redraw?");
+            return;
+        }
         nativeChart.update();
     }
 
@@ -51,8 +73,16 @@ public class ChartJsWidget extends Composite implements RequiresResize {
 
     @Override
     public void onResize() {
-        final Element parent = getElement().getParentElement();
-        canvas.setPixelSize(parent.getClientWidth(), parent.getClientHeight());
-        nativeChart.update();
+        try {
+            if (nativeChart != null) {
+                Scheduler.get().scheduleDeferred(() -> {
+                    final Element parent = getElement().getParentElement();
+                    canvas.setPixelSize(parent.getClientWidth(), parent.getClientHeight());
+                    nativeChart.update();
+                });
+            }
+        } catch (JavaScriptException e) {
+            GWT.log("Chart resize failed => " + e.getMessage());
+        }
     }
 }
