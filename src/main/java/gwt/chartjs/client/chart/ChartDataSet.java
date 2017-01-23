@@ -22,7 +22,7 @@ public class ChartDataSet {
 
     private @JsProperty JavaScriptObject backgroundColor;
 
-    private @JsProperty String[] borderColor;
+    private @JsProperty Object borderColor;
 
     private @JsProperty int borderWidth;
 
@@ -52,14 +52,14 @@ public class ChartDataSet {
         this.data = data;
     }
 
-    public @JsOverlay final String getBackgroundColor() {
-        return null;
-        // return this.backgroundColor.isString().stringValue();
-    }
-
-    public @JsOverlay final void setBackgroundColor(final String color) {
-        // this.backgroundColor = new JSONString(color);
-    }
+//    public @JsOverlay final String getBackgroundColor() {
+//        return null;
+//        // return this.backgroundColor.isString().stringValue();
+//    }
+//
+//    public @JsOverlay final void setBackgroundColor(final String color) {
+//        // this.backgroundColor = new JSONString(color);
+//    }
 
     public @JsOverlay final String[] getBackgroundColors() {
         final JsArrayString array = this.backgroundColor.cast();
@@ -82,13 +82,42 @@ public class ChartDataSet {
 
         this.backgroundColor = _backgroundColors;
     }
+    
 
-    public @JsOverlay final String[] getBorderColor() {
-        return borderColor;
+    public @JsOverlay final void getBorderColor() {
+        if (! (borderColor instanceof String)){
+            throw new RuntimeException("border color is not a string");
+        }
+    }
+    
+    public @JsOverlay final void setBorderColor(final String borderColor) {
+        this.borderColor = borderColor;
+    }
+    
+
+    public @JsOverlay final String[] getBorderColors() {
+        if (! (this.borderColor instanceof JavaScriptObject))  {
+            throw new RuntimeException("Border color is not a js array");
+        }
+        final JsArrayString array = ((JavaScriptObject)this.borderColor).cast();
+        int len = array.length();
+        String[] colors = new String[len];
+        for (int i = 0; i < len; i++) {
+            colors[i] = array.get(i).toString();
+        }
+
+        return colors;
     }
 
-    public @JsOverlay final void setBorderColor(String[] borderColor) {
-        this.borderColor = borderColor;
+    public @JsOverlay final void setBorderColors(String[] borderColors) {
+        final JsArrayString _borderColors = JavaScriptObject.createArray().cast();
+
+        int len = borderColors.length;
+        for (int i = 0; i < len; i++) {
+            _borderColors.push(borderColors[i]);
+        }
+
+        this.borderColor = _borderColors;
     }
 
     public @JsOverlay final int getBorderWidth() {

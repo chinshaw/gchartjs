@@ -21,11 +21,16 @@ public class Axis {
 
     private @JsProperty String type;
 
+    private @JsProperty boolean stacked;
+    
     private @JsProperty String position;
 
     private @JsProperty GridLines gridLines;
+    
+    private @JsProperty String scaleLabel;
 
     private @JsProperty OptionTick ticks;
+
 
     public @JsOverlay final String getType() {
         return type;
@@ -47,6 +52,14 @@ public class Axis {
         return id;
     }
 
+    public @JsOverlay final boolean isStacked() {
+        return stacked;
+    }
+    
+    public @JsOverlay final void setStacked(boolean stacked) {
+       this.stacked = stacked;
+    }
+    
     public @JsOverlay final void setId(String id) {
         this.id = id;
     }
@@ -59,6 +72,8 @@ public class Axis {
         this.gridLines = gridLines;
     }
 
+
+    
     public @JsOverlay final OptionTick getTicks() {
         return ticks;
     }
@@ -66,6 +81,7 @@ public class Axis {
     public @JsOverlay final void setTicks(OptionTick ticks) {
         this.ticks = ticks;
     }
+    
 
     public static class Builder {
 
@@ -74,6 +90,8 @@ public class Axis {
         private GridLines gridLines;
 
         private Position position;
+        
+        private boolean stacked;
 
         public Builder id(final String id) {
             this.id = id;
@@ -82,6 +100,11 @@ public class Axis {
 
         public Builder position(Position position) {
             this.position = position;
+            return this;
+        }
+        
+        public Builder stacked(boolean stacked) {
+            this.stacked = stacked;
             return this;
         }
 
@@ -99,6 +122,7 @@ public class Axis {
             axis.setGridLines(gridLines);
             axis.setPosition(position);
             axis.setId(id == null ? generateAxisId() : id);
+            axis.setStacked(stacked);
             return axis;
         }
 
@@ -107,4 +131,5 @@ public class Axis {
         }
 
     }
+
 }
